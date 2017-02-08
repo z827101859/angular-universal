@@ -7,6 +7,17 @@ import { Component } from '@angular/core';
 export class AppRoot {
     name: String;
     constructor() {
-        this.name = 'sweetyx';
+        new Promise((resolve,reject)=>{
+        	setTimeout(()=>{
+        		console.log('name ready..');
+        		resolve();
+        	},1000);
+        }).then(()=>{
+        	this.name = 'sweetyx';
+        });
+    }
+    ngAfterViewInit(){
+    	var timeDom = $('#app-init-time');
+    	timeDom.text('App初始化时间：' + new Date().toString());
     }
 };
