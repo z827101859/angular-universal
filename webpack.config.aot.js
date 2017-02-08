@@ -10,7 +10,7 @@ module.exports = {
         path: path.join(__dirname, config.webapp, config.jsPath),
         filename: '[name].js',
         publicPath: 'http://support.163.com:9100/angular2/script/',
-        chunkFilename: '[id]-prod.chunk.js'
+        chunkFilename: '[id]-aot.chunk.js'
     },
     module: {
         loaders: [{

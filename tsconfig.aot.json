@@ -2,7 +2,7 @@
     "compileOnSave": true,
     "compilerOptions": {
         "target": "es5",
-        "module": "es2015", //指定生成哪个模块系统代码：'commonjs'，'amd'，'system'，或 'umd'或'es2015'。只有'amd'和'system'能和--outFile一起使用。当目标是ES5或以下的时候不能使用'es2015'。
+        "module": "es2015",
         "moduleResolution": "node", //决定如何处理模块。或者是'node'对于Node.js/io.js，或者是'classic'（默认）。
         "sourceMap": false,
         "declaration": false, //生成相应的'.d.ts'文件
@@ -11,9 +11,9 @@
         "experimentalDecorators": true, //实验性启用ES7装饰器支持。
         "noImplicitAny": false, //在表达式和声明上有隐含的'any'类型时报错。
         "listFiles": true, //编译过程中打印文件名。
-        "noLib": false, //不包含默认的库文件（lib.d.ts）
         "pretty": true, //Stylize errors and messages using color and context.
-        "rootDir": ".",
+        "types":["jquery","node"],
+        "lib": ["es2017", "dom"],
         "watch": false,
         "outDir": "./aot-js"
     },
