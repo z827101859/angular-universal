@@ -2,7 +2,6 @@ import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 import 'rxjs/Rx';
 import * as express from 'express';
-import { platformServer, renderModuleFactory } from '@angular/platform-server';
 import { ServerAppModule } from './app/server-app.module';
 import { ngExpressEngine } from './modules/ng-express-engine/express-engine';
 import { ROUTES } from './routes';
@@ -11,7 +10,7 @@ import { enableProdMode } from '@angular/core';
 enableProdMode();
 const app = express();
 const api = new App();
-const port = 8000;
+const port = 9000;
 const baseUrl = `http://localhost:${port}`;
 
 app.engine('html', ngExpressEngine({
@@ -21,23 +20,25 @@ app.engine('html', ngExpressEngine({
 app.set('view engine', 'html');
 app.set('views', 'src');
 
-app.use('/', express.static('dist', { index: false }));
+app.use('/',express.static('build', { index: false }));
 
 ROUTES.forEach(route => {
   app.get(route, (req, res) => {
-    console.log(`render: ${req.originalUrl}`);
-    res.render('index', {
+    console.time(`GET: ${req.originalUrl}`);
+    res.render('../build/index', {
       req: req,
       res: res
     });
+    console.timeEnd(`GET: ${req.originalUrl}`);
   });
 });
 
 app.get('/data', (req, res) => {
-  console.log(`req path: ${req.originalUrl}`);
+  console.time(`GET: ${req.originalUrl}`);
   res.json(api.getData());
+  console.timeEnd(`GET: ${req.originalUrl}`);
 });
 
-app.listen(8000, () => {
-  console.log(`Listening at ${baseUrl}`);
+app.listen(port,() => {
+	console.log(`Listening at ${baseUrl}`);
 });

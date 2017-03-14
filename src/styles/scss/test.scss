@@ -1,0 +1,22 @@
+html,
+body {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Microsoft Yahei', 'PingFang SC', Helvetica, sans-serif;
+    font-size: 14px;
+    background-image: url(../../assets/img/body.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+body {
+    min-width: 960px;
+}

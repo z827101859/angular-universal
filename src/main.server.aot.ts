@@ -1,12 +1,7 @@
-/**
- * This file should be temporary
- * See https://github.com/angular/angular-cli/pull/5194
- */
 import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 import 'rxjs/Rx';
 import * as express from 'express';
-import { platformServer, renderModuleFactory } from '@angular/platform-server';
 import { ServerAppModuleNgFactory } from './ngfactory/app/server-app.module.ngfactory';
 import { ngExpressEngine } from './modules/ng-express-engine/express-engine';
 import { ROUTES } from './routes';
@@ -15,7 +10,7 @@ import { enableProdMode } from '@angular/core';
 enableProdMode();
 const app = express();
 const api = new App();
-const port = 8000;
+const port = 9000;
 const baseUrl = `http://localhost:${port}`;
 
 app.engine('html', ngExpressEngine({
@@ -26,12 +21,12 @@ app.engine('html', ngExpressEngine({
 app.set('view engine', 'html');
 app.set('views', 'src');
 
-app.use('/', express.static('dist', { index: false }));
+app.use('/',express.static('build', { index: false }));
 
 ROUTES.forEach(route => {
   app.get(route, (req, res) => {
     console.time(`GET: ${req.originalUrl}`);
-    res.render('index', {
+    res.render('../build/index', {
       req: req,
       res: res
     });
@@ -45,6 +40,6 @@ app.get('/data', (req, res) => {
   console.timeEnd(`GET: ${req.originalUrl}`);
 });
 
-app.listen(8000, () => {
+app.listen(port, () => {
   console.log(`Listening at ${baseUrl}`);
 });

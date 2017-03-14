@@ -11,10 +11,9 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.ts$/,
-        loader: '@ngtools/webpack',
-      }
+      { test: /\.ts$/, loader: '@ngtools/webpack' },
+      { test: /\.css$/, loader: 'raw-loader' },
+      { test: /\.html$/, loader: 'raw-loader' }
     ]
   },
   plugins: []

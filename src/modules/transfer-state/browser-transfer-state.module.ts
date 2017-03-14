@@ -1,6 +1,5 @@
-import { NgModule, RendererFactoryV2 } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { TransferState } from './transfer-state';
-import { PlatformState } from '@angular/platform-server';
 
 export function getTransferState(): TransferState {
   const transferState = new TransferState();

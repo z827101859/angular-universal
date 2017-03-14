@@ -1,9 +1,9 @@
-import { Injectable, Optional, RendererFactoryV2, ViewEncapsulation } from '@angular/core';
+import { Injectable, Optional, RendererFactory2, ViewEncapsulation } from '@angular/core';
 import { TransferState } from './transfer-state';
 import { PlatformState } from '@angular/platform-server';
 @Injectable()
 export class ServerTransferState extends TransferState {
-    constructor( private state: PlatformState, private rendererFactory: RendererFactoryV2) {
+    constructor( private state: PlatformState, private rendererFactory: RendererFactory2) {
         super();
     }
 

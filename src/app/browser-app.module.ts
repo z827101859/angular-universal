@@ -5,13 +5,13 @@ import { AppModule } from './app.module';
 import { BrowserTransferStateModule } from '../modules/transfer-state/browser-transfer-state.module';
 
 @NgModule({
-	bootstrap: [ AppComponent ],
-	imports: [
-    BrowserModule.withServerTransition({
-      appId: 'my-app-id'
-    }),
-    BrowserTransferStateModule,
-    AppModule
-	]
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule.withServerTransition({
+            appId: 'my-app-id'
+        }),
+        BrowserTransferStateModule,
+        AppModule
+    ]
 })
-export class BrowserAppModule {}
+export class BrowserAppModule { }
