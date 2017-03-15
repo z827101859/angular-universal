@@ -13,10 +13,17 @@ import { TransferHttpModule } from '../modules/transfer-http/transfer-http.modul
         CommonModule,
         HttpModule,
         TransferHttpModule,
-        RouterModule.forRoot([
-            { path: '', component: HomeComponent, pathMatch: 'full' },
-            { path: 'lazy', loadChildren: './+lazy/lazy.module#LazyModule' }
-        ])
+        RouterModule.forRoot([{
+            path: '',
+            redirectTo: '/home',
+            pathMatch: 'full'
+        }, {
+            path: 'home',
+            component: HomeComponent
+        }, {
+            path: 'lazy',
+            loadChildren: './+lazy/lazy.module#LazyModule'
+        }])
     ],
     providers: [
         { provide: APP_BASE_HREF, useValue: '/' }

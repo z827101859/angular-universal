@@ -64,6 +64,12 @@ module.exports = {
             'ENV': '"prod"'
         }),
         new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            comments: false,
+            compress: {
+                warnings: false
+            }
+        }),
         new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             template: root('./src/index.html')

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core'
-import { TransferState } from '../modules/transfer-state/transfer-state';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'demo-app',
     template: `
         <h1>Universal Demo</h1>
-        <a routerLink="/">Home</a>
-        <a routerLink="/lazy">Lazy</a>
+        <a (click)="goHome();">Home</a>
+        <a (click)="goLazy();">Lazy</a>
         <router-outlet></router-outlet>
 	`,
     styles: [`
@@ -15,9 +15,14 @@ import { TransferState } from '../modules/transfer-state/transfer-state';
         }
     `]
 })
-export class AppComponent implements OnInit {
-    constructor(private cache: TransferState) { }
-    ngOnInit() {
-        this.cache.set('cached', true);
+export class AppComponent {
+    constructor(
+        private router: Router
+    ) { }
+    goHome() {
+        this.router.navigate(['/home', { router: 'home' }]);
+    }
+    goLazy() {
+        this.router.navigate(['/lazy', { router: 'lazy' }]);
     }
 }
