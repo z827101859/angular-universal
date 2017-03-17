@@ -8,12 +8,14 @@ var root = require('./helpers');
 
 module.exports = {
     entry: {
-        browser: root('./src/main.browser.ts')
+        browser: root('./src/main.browser.ts'),
+        angular: ['@angular/core', '@angular/platform-browser', '@angular/common', '@angular/router', '@angular/http', '@angular/forms'],
+        polyfill: ['zone.js/dist/zone', 'reflect-metadata']
     },
     output: {
         path: root('build'),
         filename: '[name].js',
-        chunkFilename: "[chunkhash:8].browser.chunk.js",
+        chunkFilename: "[chunkhash:8].chunk.js",
         publicPath: 'http://support.163.com:9000/'
     },
     target: 'web',
@@ -70,16 +72,18 @@ module.exports = {
                 warnings: false
             }
         }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['bootstrap', 'angular', 'polyfill']
+        }),
         new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: root('./src/index.ejs'),
-            title: 'universal demo',
-            linkDll: false
+            title: 'universal'
         }),
         new ngtools.AotPlugin({
             skipCodeGeneration: false,   //默认false. false：使用AoT ; true：不使用AoT 
-            tsConfigPath: root('./config/tsconfig.browser.json')
+            tsConfigPath: root('src/tsconfig.browser.json')
         })
     ]
 }

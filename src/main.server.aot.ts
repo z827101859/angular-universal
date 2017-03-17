@@ -4,7 +4,6 @@ import 'rxjs';
 import { enableProdMode } from '@angular/core';
 import { ServerAppModuleNgFactory } from './ngfactory/app/server-app.module.ngfactory';
 import { ngExpressEngine } from './modules/ng-express-engine/express-engine';
-import { ROUTES } from './routes';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 enableProdMode();

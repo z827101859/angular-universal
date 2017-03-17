@@ -11,7 +11,7 @@ module.exports = {
     output: {
         path: root('build'),
         filename: '[name].js',
-        chunkFilename: "[chunkhash:8].server.chunk.js",
+        chunkFilename: "[chunkhash:8].chunk.js",
         publicPath: 'http://support.163.com:9000/'
     },
     target: 'node',
@@ -57,7 +57,7 @@ module.exports = {
         new webpack.NoEmitOnErrorsPlugin(),
         new ngtools.AotPlugin({
             skipCodeGeneration: false,   //默认false. false：使用AoT ; true：不使用AoT 
-            tsConfigPath: root('./config/tsconfig.server.json')
+            tsConfigPath: root('src/tsconfig.server.json')
         })
     ]
 }

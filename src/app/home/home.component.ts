@@ -18,7 +18,7 @@ export class HomeComponent {
     ) { }
     ngOnInit() {
         this.subscription = this.activatedRoute.params.subscribe((params: any) => {
-            let cacheKey = this.url + (params ? JSON.stringify(params) : '');
+            var cacheKey = this.url + (params ? JSON.stringify(params) : '');
             var data = this.cache.get(cacheKey);
             if (data) {
                 this.text = `${data.greeting} ${data.name}`;
