@@ -1,7 +1,7 @@
 {
     "watch": [
-        "build/*server.js",
-        "build/index.html"
+        "build/server/*main.js",
+        "build/client/*index.html"
     ],
     "ext": "js html"
 }

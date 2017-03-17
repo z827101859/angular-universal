@@ -14,26 +14,24 @@ const baseUrl = `http://localhost:${port}`;
 app.engine('html', ngExpressEngine({
     bootstrap: ServerAppModule
 }));
-
 app.set('view engine', 'html');
-app.set('views', 'src');
+app.set('views', 'build/client');
 
-app.use('/', express.static('build', { index: false }));
-app.use('/src/lib', express.static('src/lib', { index: false }));
+app.use('/', express.static('build/client', { index: false }));
 
 app.get('/', (req, res) => {
     res.redirect('/home');
 });
 
 app.get('/home*', (req, res) => {
-    res.render('../build/index', {
+    res.render('index', {
         req: req,
         res: res
     });
 });
 
 app.get('/lazy*', (req, res) => {
-    res.render('../build/index', {
+    res.render('index', {
         req: req,
         res: res
     });

@@ -7,8 +7,14 @@ module.exports = function (options) {
     var configs = [];
     if (options.dev) {
         configs.push(devClient, devServer);
-    } else if (options.prod) {
-        configs.push(prodClient, prodServer);
+    }
+    else if (options.prod) {
+        if (options.client) {
+            configs.push(prodClient);
+        }
+        else if (options.server) {
+            configs.push(prodServer);
+        }
     }
     return configs;
 }

@@ -8,15 +8,15 @@ var root = require('./helpers');
 
 module.exports = {
     entry: {
-        browser: root('./src/main.browser.ts'),
+        main: root('./src/main.browser.ts'),
         angular: ['@angular/core', '@angular/platform-browser', '@angular/platform-browser-dynamic', '@angular/common', '@angular/router', '@angular/http', '@angular/forms'],
         polyfill: ['zone.js/dist/zone', 'reflect-metadata']
     },
     output: {
-        path: root('build'),
-        filename: '[name].js',
-        chunkFilename: "[chunkhash:8].chunk.js",
-        publicPath: 'http://support.163.com:9000/'
+        path: root('build/client'),
+        filename: 'js/[name].js',
+        chunkFilename: "js/chunk-[id].js",
+        publicPath: 'http://localhost:9000/'
     },
     target: 'web',
     module: {
@@ -35,6 +35,7 @@ module.exports = {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 query: {
+                    name: 'images/[name].[ext]',
                     limit: 100
                 }
             },
@@ -70,9 +71,9 @@ module.exports = {
         }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['bootstrap', 'angular', 'polyfill']
+            name: ['main', 'angular', 'polyfill']
         }),
-        new ExtractTextPlugin("[name].css"),
+        new ExtractTextPlugin("css/[name].css"),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: root('./src/index.ejs'),

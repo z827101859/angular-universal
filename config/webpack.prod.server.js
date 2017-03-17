@@ -6,13 +6,13 @@ var root = require('./helpers');
 
 module.exports = {
     entry: {
-        server: root('./src/main.server.aot.ts')
+        main: root('./src/main.server.aot.ts')
     },
     output: {
-        path: root('build'),
+        path: root('build/server'),
         filename: '[name].js',
-        chunkFilename: "[chunkhash:8].chunk.js",
-        publicPath: 'http://support.163.com:9000/'
+        chunkFilename: "chunk-[id].js",
+        publicPath: 'http://localhost:9000/'
     },
     target: 'node',
     module: {
@@ -31,6 +31,7 @@ module.exports = {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 query: {
+                    name: 'images/[name]-[hash:8].[ext]',
                     limit: 100
                 }
             },

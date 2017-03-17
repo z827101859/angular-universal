@@ -4,13 +4,10 @@
   "main": "index.js",
   "repository": {},
   "scripts": {
-    "start": "nodemon build/server.js",
+    "start": "nodemon build/server/main.js",
     "build-dev": "npm run clean && webpack --env.dev --watch",
-    "build-prod": "npm run clean && webpack --env.prod",
-    "build-dll": "webpack --config ./config/webpack.dll.js",
-    "clean": "rimraf build",
-    "build-dev1": "npm run clean && webpack --config ./config/webpack.dev.client.js && webpack --config ./config/webpack.dev.server.js",
-    "build-prod1": "npm run clean && webpack --config ./config/webpack.prod.client.js && webpack --config ./config/webpack.prod.server.js"
+    "build-prod": "npm run clean && webpack --env.prod --env.client && webpack --env.prod --env.server",
+    "clean": "rimraf build"
   },
   "engines": {
     "node": ">=6.0.0"

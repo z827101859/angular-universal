@@ -8,8 +8,8 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-    private url = '/xhr/data.do';
-    private text = '';
+    url = '/xhr/data.do';
+    text = '';
     subscription: any;
     constructor(
         private activatedRoute: ActivatedRoute,
