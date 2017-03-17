@@ -1,7 +1,7 @@
 {
-  "watch": [
-    "dist/*server.js",
-    "src/index.html"
-  ],
-  "ext": "js html"
+    "watch": [
+        "build/*server.js",
+        "build/index.html"
+    ],
+    "ext": "js html"
 }

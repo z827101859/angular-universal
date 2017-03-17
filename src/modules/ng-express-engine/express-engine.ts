@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import { Request, Response, Send } from 'express';
 import { Provider, NgModuleFactory, NgModuleRef, PlatformRef, ApplicationRef, Type } from '@angular/core';
 import { platformServer, platformDynamicServer, PlatformState, INITIAL_CONFIG } from '@angular/platform-server';
+import { HttpOptions } from '../transfer-http/http-options';
 
 /**
  * These are the allowed options for the engine
@@ -27,14 +28,19 @@ export function ngExpressEngine(setupOptions: NgSetupOptions) {
     return function (filePath, options: { req: Request, res?: Response }, callback: Send) {
         try {
             const moduleFactory = setupOptions.bootstrap;
-
             if (!moduleFactory) {
                 throw new Error('You must pass in a NgModule or NgModuleFactory to be bootstrapped');
             }
-
             const extraProviders = setupOptions.providers.concat(
                 getReqResProviders(options.req, options.res),
                 [
+                    {
+                        provide: HttpOptions,
+                        useValue: {
+                            contentPath: '',
+                            pre: options.req.protocol + '://' + options.req.get('host')
+                        }
+                    },
                     {
                         provide: INITIAL_CONFIG,
                         useValue: {

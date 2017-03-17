@@ -1,15 +1,14 @@
+import './lib/angular.dll';
 import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 import 'rxjs';
-import * as express from 'express';
 import { ServerAppModule } from './app/server-app.module';
 import { ngExpressEngine } from './modules/ng-express-engine/express-engine';
-import { ROUTES } from './routes';
-import { App } from './api/app';
-import { enableProdMode } from '@angular/core';
-enableProdMode();
+import { Api } from './api/api';
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
 const app = express();
-const api = new App();
+const api = new Api();
 const port = 9000;
 const baseUrl = `http://localhost:${port}`;
 
@@ -21,6 +20,7 @@ app.set('view engine', 'html');
 app.set('views', 'src');
 
 app.use('/', express.static('build', { index: false }));
+app.use('/src/lib', express.static('src/lib', { index: false }));
 
 app.get('/', (req, res) => {
     res.redirect('/home');
@@ -40,8 +40,13 @@ app.get('/lazy*', (req, res) => {
     });
 });
 
-app.use('/data', (req, res) => {
-    res.json(api.getData());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.post('/xhr/data.do', (req, res) => {
+    console.log('请求参数：',req.body);
+    api.getData().then((data) => {
+        res.json(data);
+    }, () => { });
 });
 
 app.listen(port, () => {

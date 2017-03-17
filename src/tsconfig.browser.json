@@ -2,6 +2,6 @@
   "extends": "../tsconfig.json",
   "angularCompilerOptions": {
     "excludes": [],
-    "entryModule": "./app/browser-app.module#BrowserAppModule"
+    "entryModule": "../src/app/browser-app.module#BrowserAppModule"
   }
 }

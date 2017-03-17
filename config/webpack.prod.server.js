@@ -57,7 +57,7 @@ module.exports = {
         new webpack.NoEmitOnErrorsPlugin(),
         new ngtools.AotPlugin({
             skipCodeGeneration: false,   //默认false. false：使用AoT ; true：不使用AoT 
-            tsConfigPath: root('./src/tsconfig.server.json')
+            tsConfigPath: root('./config/tsconfig.server.json')
         })
     ]
 }

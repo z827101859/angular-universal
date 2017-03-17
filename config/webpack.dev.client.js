@@ -8,7 +8,9 @@ var root = require('./helpers');
 
 module.exports = {
     entry: {
-        browser: root('./src/main.browser.ts')
+        browser: root('./src/main.browser.ts'),
+        lib: ['@angular/core', '@angular/platform-browser', '@angular/common', '@angular/router', '@angular/http', '@angular/forms'],
+        polyfill: ['zone.js/dist/zone', 'reflect-metadata']
     },
     output: {
         path: root('build'),
@@ -53,6 +55,9 @@ module.exports = {
                     'css-loader',
                     'sass-loader'
                 ]
+            }, {
+                test: /\.ejs$/,
+                loader: 'ejs-loader'
             }
         ]
     },
@@ -60,17 +65,28 @@ module.exports = {
         extensions: ['.ts', '.js']
     },
     plugins: [
+        new webpack.DllReferencePlugin({
+            context: root(''),
+            manifest: require(root('src/lib/angular-manifest.json'))
+        }),
         new DefinePlugin({
             'ENV': '"dev"'
         }),
         new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['bootstrap', 'lib', 'polyfill']
+        }),
         new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
-            template: root('./src/index.html')
+            filename: 'index.html',
+            template: root('./src/index.ejs'),
+            title: 'universal demo',
+            linkDll: true
         }),
         new ngtools.AotPlugin({
             skipCodeGeneration: true,   //默认false. false：使用AoT ; true：不使用AoT 
-            tsConfigPath: root('./src/tsconfig.browser.json')
+            tsConfigPath: root('src/tsconfig.browser.json')
+            // tsConfigPath: root('./config/tsconfig.browser.json')
         })
     ],
     devtool: 'source-map' //'cheap-module-source-map' | 'source-map'

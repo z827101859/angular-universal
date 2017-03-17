@@ -1,38 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Http, Request, RequestOptions, Headers, URLSearchParams } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Http, RequestOptions, Headers, URLSearchParams } from '@angular/http';
+import { HttpOptions } from './http-options';
 import { TransferState } from '../transfer-state/transfer-state';
 
 
 @Injectable()
 export class TransferHttp {
-    baseHttpUrl = 'http://localhost:9000';
+    baseHttpUrl = '';
     formHeader = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     jsonHeader = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
     constructor(
         private http: Http,
-        protected transferState: TransferState
-    ) { }
+        private httpOptions: HttpOptions,
+        private transferState: TransferState
+    ) {
+        this.baseHttpUrl = httpOptions.pre + httpOptions.contentPath;
+    }
     /**
      * get
      */
     get(url: string, params?: object): Promise<any> {
-        return this.request(url, params, 'get');
+        return this.doRequest(url, params, 'get');
     }
     /**
      * post
      */
     post(url: string, params?: object): Promise<any> {
-        return this.request(url, params, 'post');
+        return this.doRequest(url, params, 'post');
     }
     /**
      * payload
      */
     postByJson(url: string, params?: object): Promise<any> {
-        return this.request(url, params, 'json');
+        return this.doRequest(url, params, 'json');
     }
 
-    request(url: string, params: object, type: string) {
+    doRequest(url: string, params: object, type: string) {
         return new Promise((resolve, reject) => {
             let key = url + (params ? JSON.stringify(params) : '');
             let cacheData = this.getFromCache(key);
@@ -40,7 +43,7 @@ export class TransferHttp {
                 return resolve(cacheData);
             }
             else {
-                let o: Observable<any>;
+                let o: any;
                 if (type === 'get') {
                     o = this.http.get(this.baseHttpUrl + url, new RequestOptions({
                         params: params,
@@ -73,7 +76,7 @@ export class TransferHttp {
                     }
                     resolve(data);
                 }, (error: any) => {
-                    console.log('request fail...');
+                    console.log('doRequest fail...');
                     reject(error);
                 })
             }

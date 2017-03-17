@@ -72,11 +72,14 @@ module.exports = {
         }),
         new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
-            template: root('./src/index.html')
+            filename: 'index.html',
+            template: root('./src/index.ejs'),
+            title: 'universal demo',
+            linkDll: false
         }),
         new ngtools.AotPlugin({
             skipCodeGeneration: false,   //默认false. false：使用AoT ; true：不使用AoT 
-            tsConfigPath: root('./src/tsconfig.browser.json')
+            tsConfigPath: root('./config/tsconfig.browser.json')
         })
     ]
 }

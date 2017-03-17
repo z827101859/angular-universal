@@ -4,21 +4,19 @@ import { ServerTransferStateModule } from '../modules/transfer-state/server-tran
 import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
 import { TransferState } from '../modules/transfer-state/transfer-state';
-import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
     bootstrap: [AppComponent],
     imports: [
-        BrowserModule.withServerTransition({
-            appId: 'my-app-id'
-        }),
         ServerModule,
         ServerTransferStateModule,
         AppModule
     ]
 })
 export class ServerAppModule {
-    constructor(private transferState: TransferState) { }
+    constructor(
+        private transferState: TransferState
+    ) {}
     // 在express-engine.ts中调用，向html中注入数据
     ngOnBootstrap = () => {
         this.transferState.inject();

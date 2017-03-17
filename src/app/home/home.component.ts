@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TransferHttp } from '../../modules/transfer-http/transfer-http';
-import { Observable } from 'rxjs/Observable';
 import { TransferState } from '../../modules/transfer-state/transfer-state';
 import { ActivatedRoute } from '@angular/router';
 
@@ -9,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-    private url = '/data';
+    private url = '/xhr/data.do';
     private text = '';
     subscription: any;
     constructor(
@@ -18,10 +17,7 @@ export class HomeComponent {
         private cache: TransferState
     ) { }
     ngOnInit() {
-        this.subscription = this.activatedRoute.params.subscribe((p: any) => {
-            console.log('路由参数...');
-            console.log(p);
-            var params = { id: 1, name: 'xxx', addr: ['我是1', '我是2'] };
+        this.subscription = this.activatedRoute.params.subscribe((params: any) => {
             let cacheKey = this.url + (params ? JSON.stringify(params) : '');
             var data = this.cache.get(cacheKey);
             if (data) {
@@ -32,7 +28,7 @@ export class HomeComponent {
             else {
                 this.http.post(this.url, params).then(data => {
                     this.text = `${data.greeting} ${data.name}`;
-                },(error)=>{});
+                }, (error) => { });
             }
         });
     }
