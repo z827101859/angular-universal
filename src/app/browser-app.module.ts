@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
 import { HttpOptions } from '../modules/transfer-http/http-options';
 import { BrowserTransferStateModule } from '../modules/transfer-state/browser-transfer-state.module';
+import { contextPath } from '../config';
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -11,8 +12,9 @@ import { BrowserTransferStateModule } from '../modules/transfer-state/browser-tr
         {
             provide: HttpOptions,
             useValue: {
-                contentPath: '',
-                pre: window.location.protocol + '//' + window.location.host
+                contextPath: contextPath,
+                pre: '',
+                cookie: ''
             }
         }
     ],

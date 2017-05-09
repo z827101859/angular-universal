@@ -1,2 +1,4 @@
-@import 'node_modules/@ntesmail/shark-css/src/main/webapp/style/scss/examples/example';
-@import 'test';
+@import 'node_modules/@ntesmail/shark-css/src/main/webapp/style/scss/shark-bootstrap/shark-bootstrap.scss';
+@import "rebase";
+@import 'pages';
+@import 'nav';

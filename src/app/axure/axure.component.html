@@ -1,0 +1,73 @@
+<div class="m-axure">
+    <div class="form form-horizontal">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">分组：</label>
+            <div class="col-sm-4">
+                <select class="form-control" [(ngModel)]="searchForm.groupId" (change)="getProducts();">
+                    <option value="">请选择</option>
+                    <option *ngFor="let item of groups;" [ngValue]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">项目：</label>
+            <div class="col-sm-4">
+                <select class="form-control" [(ngModel)]="searchForm.productId">
+                    <option value="">请选择</option>
+                    <option *ngFor="let item of products;" [ngValue]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">版本：</label>
+            <div class="col-sm-4">
+                <input [(ngModel)]="searchForm.version" placeholder="请输入版本号" class="form-control" type="text" />
+            </div>
+            <div class="col-sm-6">
+                <p class="form-control-static text-info">版本号默认为[default]，如果版本号相同，则上传后会覆盖原版本号下的内容。</p>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">压缩包：</label>
+            <div class="col-sm-4">
+                <input readonly value="{{searchForm.file?.name}}" placeholder="请选择zip压缩包" class="form-control" type="text" />
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-primary btn-sm" (click)="selectFile();">选择</button>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">压缩包说明：</label>
+            <div class="col-sm-10">
+                <p class="text-info">直接在zip包根目录下放置交互稿文件，不要再包含多层文件夹目录</p>
+                <span class="text-success">正确示例</span><img (click)="lookImg($event)" class="img-preview" src="../../assets/img/axure-demo-ok.jpg" />
+                <span class="text-danger">错误示例</span><img (click)="lookImg($event)" class="img-preview" src="../../assets/img/axure-demo-error.jpg" />
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">上传进度：</label>
+            <div class="col-sm-4">
+                <div class="progress form-control-static">
+                    <div #progressBar class="progress-bar progress-bar-success" style="width:0;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="col-sm-4 col-sm-offset-2">
+                <a class="btn btn-success btn-sm" (click)="deploy(progressBar);" *ngIf="!isDeploying">开始部署</a>
+                <a class="btn btn-warning btn-sm" *ngIf="isDeploying">部署中...</a> &nbsp;&nbsp;&nbsp;&nbsp; <span class="text-danger"
+                    *ngIf="errmsg">{{errmsg}}</span>
+            </div>
+        </div>
+        <div class="form-group form-group-sm" *ngIf="result">
+            <label class="col-sm-2 control-label">状态：</label>
+            <div class="col-sm-4">
+                <p class="form-control-static">
+                    <span class="text-success" *ngIf="result?.code===200">成功</span>
+                    <span class="text-danger" *ngIf="result?.code!==200">失败</span> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a [href]="result?.data" target="_blank">{{result?.data}}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

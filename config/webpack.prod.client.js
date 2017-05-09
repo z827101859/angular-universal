@@ -16,7 +16,7 @@ module.exports = {
         path: root('build/client'),
         filename: 'js/[name]-[hash:8].js',
         chunkFilename: "js/chunk-[chunkhash:8].js",
-        publicPath: 'http://localhost:9000/'
+        publicPath: 'http://webdev.hztest.client.163.com/documents/'
     },
     target: 'web',
     module: {
@@ -56,6 +56,9 @@ module.exports = {
                     'css-loader',
                     'sass-loader'
                 ]
+            }, {
+                test: /\.ejs$/,
+                loader: 'ejs-loader'
             }
         ]
     },
@@ -80,11 +83,19 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: root('./src/index.ejs'),
-            title: 'universal'
+            title: '部署平台'
         }),
         new ngtools.AotPlugin({
             skipCodeGeneration: false,   //默认false. false：使用AoT ; true：不使用AoT 
             tsConfigPath: root('src/tsconfig.browser.json')
         })
-    ]
+    ],
+    externals: [function (context, request, callback) {
+        if (/serversqlite.js$/.test(request) || /noderequest.js$/.test(request)) {
+            console.log(`skip compile ${request}...`);
+            callback(null, 'commonjs ' + request);
+        } else {
+            callback();
+        }
+    }]
 }

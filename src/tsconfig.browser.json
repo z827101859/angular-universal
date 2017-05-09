@@ -1,6 +1,6 @@
 {
-  "extends": "../tsconfig.json",
-  "angularCompilerOptions": {
-    "entryModule": "./app/browser-app.module#BrowserAppModule"
-  }
+    "extends": "../tsconfig.json",
+    "angularCompilerOptions": {
+        "entryModule": "./app/browser-app.module#BrowserAppModule"
+    }
 }

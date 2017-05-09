@@ -1,0 +1,168 @@
+<div class="m-setting">
+    <h2>设置</h2>
+    <div class="form form-horizontal">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-3">
+                <input [(ngModel)]="searchForm.groupId" placeholder="分组id" class="form-control" type="text" />
+            </div>
+            <div class="col-sm-3">
+                <input [(ngModel)]="searchForm.groupName" placeholder="分名称" class="form-control" type="text" />
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-success btn-sm" (click)="addGroup();">添加分组</button>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="col-sm-3">
+                <input [(ngModel)]="searchForm.productId" placeholder="项目id" class="form-control" type="text" />
+            </div>
+            <div class="col-sm-3">
+                <input [(ngModel)]="searchForm.productName" placeholder="项目名称" class="form-control" type="text" />
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-success btn-sm" (click)="addProduct();">添加项目</button>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="col-sm-2">
+                <input [(ngModel)]="searchForm.userEmail" placeholder="用户邮箱" class="form-control" type="text" />
+            </div>
+            <div class="col-sm-2">
+                <input [(ngModel)]="searchForm.userType" placeholder="用户类型" class="form-control" type="text" />
+            </div>
+            <div class="col-sm-2">
+                <input [(ngModel)]="searchForm.userPages" placeholder="用户页面权限" class="form-control" type="text" />
+            </div>
+            <div class="col-sm-2">
+                <input [(ngModel)]="searchForm.userDatas" placeholder="用户数据权限" class="form-control" type="text" />
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-success btn-sm" (click)="addUser();">添加用户</button>
+            </div>
+            <div class="col-sm-12">
+                <p class="text-muted">例子: {{demo}}</p>
+            </div>
+            
+        </div>
+    </div>
+    <p class="text-info">分组列表</p>
+    <table class="table" style="table-layout: fixed; width:400px;">
+        <thead>
+            <tr>
+                <th style="width:100px;">
+                    <span>分组id</span>
+                </th>
+                <th style="width:200px;">
+                    <span>分组名称</span>
+                </th>
+                <th style="width:100px;">
+                    <span>操作</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="groups.length == 0">
+            <tr>
+                <td colspan="3" style="text-align: left;">没有查询到任何数据</td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="groups.length > 0">
+            <tr *ngFor="let item of groups;">
+                <td>
+                    {{item.id}}
+                </td>
+                <td>
+                    {{item.name}}
+                </td>
+                <td>
+                    <a (click)="deleteGroup(item);">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="text-info">项目列表</p>
+    <table class="table" style="table-layout: fixed; width:500px">
+        <thead>
+            <tr>
+                <th style="width:100px;">
+                    <span>分组id</span>
+                </th>
+                <th style="width:100px;">
+                    <span>项目id</span>
+                </th>
+                <th style="width:200px;">
+                    <span>项目名称</span>
+                </th>
+                <th style="width:100px;">
+                    <span>操作</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="products.length == 0">
+            <tr>
+                <td colspan="4" style="text-align: left;">没有查询到任何数据</td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="products.length > 0">
+            <tr *ngFor="let item of products;">
+                <td>
+                    {{item.groupId}}
+                </td>
+                <td>
+                    {{item.id}}
+                </td>
+                <td>
+                    {{item.name}}
+                </td>
+                <td>
+                    <a (click)="deleteProduct(item);">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="text-info">用户列表</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <span>用户邮箱</span>
+                </th>
+                <th>
+                    <span>用户类型</span>
+                </th>
+                <th>
+                    <span>用户页面权限</span>
+                </th>
+                <th>
+                    <span>用户数据权限</span>
+                </th>
+                <th>
+                    <span>操作</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="users.length == 0">
+            <tr>
+                <td colspan="5" style="text-align: left;">没有查询到任何数据</td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="users.length > 0">
+            <tr *ngFor="let item of users;">
+                <td>
+                    {{item.uid}}
+                </td>
+                <td>
+                    {{item.type}}
+                </td>
+                <td>
+                    {{item.page_perms}}
+                </td>
+                <td>
+                    {{item.data_perms}}
+                </td>
+                <td>
+                    <a (click)="deleteUser(item);">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

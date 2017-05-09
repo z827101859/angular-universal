@@ -16,7 +16,7 @@ module.exports = {
         path: root('build/client'),
         filename: 'js/[name].js',
         chunkFilename: "js/chunk-[id].js",
-        publicPath: 'http://localhost:9000/'
+        publicPath: 'http://localhost:9000/documents/'
     },
     target: 'web',
     module: {
@@ -77,12 +77,20 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: root('./src/index.ejs'),
-            title: 'universal demo'
+            title: '部署平台-开发'
         }),
         new ngtools.AotPlugin({
             skipCodeGeneration: true,   //默认false. false：使用AoT ; true：不使用AoT 
             tsConfigPath: root('src/tsconfig.browser.json')
         })
     ],
+    externals: [function (context, request, callback) {
+        if (/serversqlite.js$/.test(request) || /noderequest.js$/.test(request)) {
+            console.log(`skip compile ${request}...`);
+            callback(null, 'commonjs ' + request);
+        } else {
+            callback();
+        }
+    }],
     devtool: 'source-map' // 'eval' | cheap-module-source-map' | 'source-map'
 }

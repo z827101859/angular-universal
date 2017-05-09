@@ -1,0 +1,53 @@
+/* 左侧导航 */
+
+.nav-bar {
+    position: relative;
+    width: 180px;
+    height: 100%;
+    background-color: #1C2B36;
+    padding-top: 18px;
+    font-size: 13px;
+    a.nav-title {
+        display: block;
+        height: 42px;
+        line-height: 42px;
+        padding-left: 18px;
+        color: #ffffff;
+        i {
+            display: inline-block;
+            display: inline-block;
+            line-height: 42px;
+            vertical-align: top;
+            margin-right: 20px;
+        }
+    }
+    a.nav-item {
+        display: block;
+        height: 29px;
+        line-height: 29px;
+        padding-left: 52px;
+        color: #ffffff;
+    }
+    a.nav-title:hover,
+    a.nav-item:hover {
+        color: #209e91;
+    }
+    a.nav-title.active,
+    a.nav-item.active {
+        background-color: #209e91;
+    }
+    a.nav-title.active:hover,
+    a.nav-item.active:hover {
+        color: #ffffff;
+    }
+    .nav-wrap{
+        transition: height 0.1s;
+        overflow: hidden;
+    }
+    .nav-wrap1{
+        height: 87px;
+    }
+    .nav-wrap.nav-hidden{
+        height: 0;
+    }
+}

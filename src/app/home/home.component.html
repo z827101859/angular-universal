@@ -1,4 +1,10 @@
 <div class="m-home">
-    <span class="text">hello</span>
-    <span class="name">{{text}}</span>
+    <div class="u-uid">欢迎您！</div>
+    <br/>
+    <p class="text-info">已上传文档列表</p>
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let item of sources;">
+            {{ item.type }} : <a target="_blank;" [href]="item.url">{{ item.url }}</a>
+        </li>
+    </ul>
 </div>

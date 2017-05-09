@@ -1,7 +1,7 @@
 {
-  "extends": "../tsconfig.json",
-  "angularCompilerOptions": {
-    "genDir": "ngfactory",
-    "entryModule": "./app/server-app.module#ServerAppModule"
-  }
+    "extends": "../tsconfig.json",
+    "angularCompilerOptions": {
+        "genDir": "ngfactory",
+        "entryModule": "./app/server-app.module#ServerAppModule"
+    }
 }

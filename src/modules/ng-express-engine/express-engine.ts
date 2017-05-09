@@ -3,6 +3,7 @@ import { Request, Response, Send } from 'express';
 import { Provider, NgModuleFactory, NgModuleRef, PlatformRef, ApplicationRef, Type } from '@angular/core';
 import { platformServer, platformDynamicServer, PlatformState, INITIAL_CONFIG } from '@angular/platform-server';
 import { HttpOptions } from '../transfer-http/http-options';
+import { contextPath } from '../../config';
 
 /**
  * These are the allowed options for the engine
@@ -37,8 +38,9 @@ export function ngExpressEngine(setupOptions: NgSetupOptions) {
                     {
                         provide: HttpOptions,
                         useValue: {
-                            contentPath: '',
-                            pre: options.req.protocol + '://' + options.req.get('host')
+                            contextPath: contextPath,
+                            pre: options.req.protocol + '://' + options.req.get('host'),
+                            cookie: options.req.header('Cookie')
                         }
                     },
                     {
@@ -95,7 +97,9 @@ function handleModuleRef(moduleRef: NgModuleRef<{}>, callback: Send) {
     const state = moduleRef.injector.get(PlatformState);
 
     appRef.isStable
-        .filter((isStable: boolean) => isStable)
+        .filter((isStable: boolean) => {
+            return isStable;
+        })
         .first()
         .subscribe((stable) => {
             const bootstrap = moduleRef.instance['ngOnBootstrap'];

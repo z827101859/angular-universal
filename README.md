@@ -1,6 +1,4 @@
-# Minimal Starter with Angular on both Server and Browser Platforms
+# Angular4.x版本服务端渲染Demo
 
-## Developement mode
-* Terminal 1: ```npm run build-dev```
-* Wait for the build to finish
-* Terminal 2: ```npm run start```
+### start this project
+* ```npm run start```

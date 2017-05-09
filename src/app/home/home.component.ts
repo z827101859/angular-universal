@@ -1,38 +1,26 @@
 import { Component } from '@angular/core';
 import { TransferHttp } from '../../modules/transfer-http/transfer-http';
 import { TransferState } from '../../modules/transfer-state/transfer-state';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-    url = '/xhr/data.do';
-    text = '';
-    subscription: any;
+    getSourceUrl = '/xhr/getSources.do';
+    sources = [];
     constructor(
-        private activatedRoute: ActivatedRoute,
-        private http: TransferHttp,
-        private cache: TransferState
+        private http: TransferHttp
     ) { }
     ngOnInit() {
-        this.subscription = this.activatedRoute.params.subscribe((params: any) => {
-            var cacheKey = this.url + (params ? JSON.stringify(params) : '');
-            var data = this.cache.get(cacheKey);
-            if (data) {
-                this.text = `${data.greeting} ${data.name}`;
-                console.log('数据已由服务端渲染生成，此处使用缓存数据，并在使用完毕后删除');
-                this.cache.delete(cacheKey);
-            }
-            else {
-                this.http.post(this.url, params).then(data => {
-                    this.text = `${data.greeting} ${data.name}`;
-                }, (error) => { });
-            }
-        });
+        this.getSources();
     }
-    ngOnDestroy() {
-        this.subscription && this.subscription.unsubscribe();
+    //Sources
+    getSources() {
+        this.http.post(this.getSourceUrl).then(res => {
+            if (res.code === 200) {
+                this.sources = res.data;
+            }
+        }, (error) => { });
     }
 }

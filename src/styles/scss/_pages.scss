@@ -1,0 +1,109 @@
+html,
+body {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Microsoft Yahei', 'PingFang SC', Helvetica, sans-serif;
+    font-size: 14px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    min-width: 1200px;
+}
+
+
+/* 顶部 */
+
+.g-head {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 66px;
+    line-height: 66px;
+    z-index: 100;
+    color: #ffffff;
+    background-color: #1C2B36;
+    padding: 0 40px;
+    border-bottom: 1px solid #aeaeae;
+    .m-logo {
+        float: left;
+        font-size: 16px;
+        letter-spacing: 1px;
+        font-weight: bold;
+    }
+    .m-collapse {
+        margin-left: 20px;
+        float: left;
+        display: block;
+        color: #ffffff;
+        i {
+            line-height: 66px;
+        }
+    }
+    .u-photo {
+        margin-left: 50px;
+        float: right;
+        display: block;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-top: 11px;
+        background-size: 40px 40px;
+        background-image: url(../../assets/img/user-photo.jpg);
+    }
+    .u-home {
+        color: #209e91;
+        float: right;
+    }
+    .u-setting {
+        margin-left: 10px;
+        color: #209e91;
+        float: right;
+    }
+    .u-logout {
+        margin-left: 10px;
+        float: right;
+        display: block;
+        color: #ffffff;
+    }
+}
+
+//显示区
+.g-bd {
+    position: relative;
+    padding-top: 66px;
+    height: 100%;
+    width: 100%;
+    .g-left-menu {
+        overflow: hidden;
+        width: 180px;
+        height: 100%;
+        float: left;
+        position: relative;
+        min-height: 1px;
+        transition: width 0.25s;
+    }
+    .g-left-menu.menu-hidden {
+        width: 0;
+    }
+    .g-right-container {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 100%;
+        position: relative;
+        min-height: 1px;
+        padding: 0;
+        transition: width 0.25s;
+        >ng-component>div {
+            min-width: 1020px;
+            max-width: 1200px;
+        }
+    }
+}

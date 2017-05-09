@@ -6,15 +6,19 @@ var root = require('./helpers');
 
 module.exports = {
     entry: {
-        main: root('./src/main.server.ts')
+        main: root('./src/server.ts')
     },
     output: {
         path: root('build/server'),
         filename: '[name].js',
         chunkFilename: "chunk-[id].js",
-        publicPath: 'http://localhost:9000/'
+        publicPath: 'http://localhost:9000/documents/'
     },
     target: 'node',
+    node: {
+        __filename: false,
+        __dirname: false
+    },
     module: {
         loaders: [
             {
@@ -60,5 +64,13 @@ module.exports = {
             skipCodeGeneration: true,   //默认false. false：使用AoT ; true：不使用AoT 
             tsConfigPath: root('src/tsconfig.server.json')
         })
-    ]
+    ],
+    externals: [function (context, request, callback) {
+        if (/serversqlite.js$/.test(request) || /noderequest.js$/.test(request)) {
+            console.log(`skip compile ${request}...`);
+            callback(null, 'commonjs ' + request);
+        } else {
+            callback();
+        }
+    }]
 }
